@@ -1,0 +1,30 @@
+Request has no headers, just param key q with a book title value that can be any string.
+Response has many headers:
+Expires → Mon, 04 Feb 2019 02:18:20 GMT - Gives time after which this response would be considered old 
+Date → Mon, 04 Feb 2019 02:18:20 GMT - Gives time message was sent.
+Cache-Control → private, max-age=0, must-revalidate, no-transform - cache control tells us what directives
+	must be uced to process this request. Private means the response is intended for a single user, and must
+	be stored in a private cache. max-age=0 means the version we got might be stale and we might want to 
+	refresh and get a new version. must revalidate refers to this as well, we need a resource that is not
+	considered stale. and no trasform means that nothing should be changed about the type of this message 
+	while it is being sent.
+ETag → "IUREzboS_XZycecz4xfru1ipYfo/WarAc2ARZKAJxgYfj_2-kGSEP6U" - an identifier for our message, sort of like
+	an id.
+Vary → Origin - vary tells us how to match future request headers to decide whether or not the
+	cached response can be used without going back to the origin server. Origin means we got it fromt
+	the origin
+Vary → X-Origin - same thing as previous vary, means this copy is fromt he origin
+Content-Type →application/json; charset=UTF-8 - This specifies what the content is encoded in,
+	so in this case its in the json format with utf-8 (which i think is the defualt) character
+	formating
+Content-Encoding → gzip - type of encoding we are using, so gzip in this case.
+X-Content-Type-Options → nosniff - this prevents the browers from "mime sniffing" our data,
+	basically making sure the content arrives as expected and is not changed in any way
+X-Frame-Options → SAMEORIGIN - clickjacking protection, our content will not render if there is	
+	an origin mismatch
+X-XSS-Protection →1; mode=block - cross site scripting filter, blocks cross site requests
+Server →GSE - specifes server, we are using google servlet engine, since we are using googles api
+Alt-Svc →quic=":443"; ma=2592000; v="44,43,39" - this is an "alternate network" from which our contents
+	can be accessed
+Transfer-Encoding →chunked - how our encoding is transferd, in this case its chunked, 
+	and the chunks are sent out independently of one another
